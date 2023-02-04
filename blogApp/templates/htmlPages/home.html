@@ -1,0 +1,13 @@
+{% extends 'htmlPages/base.html' %}
+
+{% block content %}
+    {% for post in Posts %}
+        <div class="info-author">
+            <span>By : {{post.author}}</span>
+        </div>
+        <div class="post-entry">
+            <h2><a href="{%url 'details' post.pk%}">{{post.title}}</a></h2>
+            <p>{{post.body}}</p>
+        </div>
+    {% endfor %}
+{% endblock content %}
