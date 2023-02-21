@@ -1,0 +1,19 @@
+{% extends 'mainHtml/base.html' %}
+
+
+{% block content %}
+    <h2>Personal info</h2>
+    <h5>UserName:{{ user.username }}</h5>
+    <div class="ingo">
+        <span>status : {{ user.last_login }}</span>
+        <br>
+        <span>Age: {{ user.age }}</span>
+    </div>
+    <h2>security anfo</h2>
+    <div>
+        <span>Email: {{user.email}}</span>
+        <br>
+        <span>Password: </span>
+        <a href="{% url 'password_change'%}">change Password</a>
+    </div>
+{% endblock content %}
