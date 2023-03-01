@@ -16,6 +16,8 @@ body {
 .navigation{
     z-index: 100 !important;
     margin: 0;
+    top: 0px;
+    position: fixed;
     padding: 0;
     width: 100%;
     height: 60px;
@@ -24,7 +26,10 @@ body {
     flex-direction: row;
     justify-content: space-between;
 }
-
+.mainContainer{
+    position: relative;
+    top: 60px;
+}
 .listcontainer{
     display: flex;
     flex-direction: row;
@@ -96,3 +101,30 @@ body {
 }
 
 
+.font-bold{
+    font-weight: bold !important;
+    color: blue  !important;
+}
+.font-weight-bold{
+    font-weight: bold !important;
+    color: rgb(176, 77, 47);
+}
+
+.comments{
+    margin-top: 10px !important;
+    margin-left: 30px !important;
+}
+.commentTitle{
+    width: 100% !important;
+    color: black;
+    
+}
+.delete-comment-btn{
+    border: none  !important; ;
+    color: blue;
+    background-color: none;
+    cursor: pointer;
+    outline: none  !important; ;
+    border-radius: none !important;
+    font-size: 12px  !important;
+}

@@ -1,27 +1,35 @@
 *{
     margin: none;
     padding: none;
-    list-style: none;
-    text-decoration: none;
+    list-style: none !important;
+    text-decoration: none !important;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
 }
 body {
     margin:0;
     padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 .navigation{
+    z-index: 100 !important;
     margin: 0;
+    top: 0px;
+    position: fixed;
     padding: 0;
     width: 100%;
     height: 60px;
     background-color: rgb(30, 29, 29);
     display:flex ;
     flex-direction: row;
-    align-items: center ;
     justify-content: space-between;
 }
-
+.mainContainer{
+    position: relative;
+    top: 60px;
+}
 .listcontainer{
     display: flex;
     flex-direction: row;
@@ -49,6 +57,7 @@ body {
 }
 .hidden{
     position: absolute;
+    z-index: 1000 !important;
     right: 0px;
     top:60px;
     width: 200px;
@@ -87,6 +96,12 @@ body {
 }
 
 
+.card{
+    z-index: 0;
+}
 
 
-
+.font-weight-bold{
+    font-weight: bold;
+    color: blue;
+}

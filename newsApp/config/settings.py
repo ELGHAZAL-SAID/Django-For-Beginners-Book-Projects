@@ -10,7 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+from imaplib import _Authenticator
+from optparse import SUPPRESS_USAGE
 from pathlib import Path
+from urllib import request
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -137,19 +140,17 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
-DEFAULT_AUTO_FIELD = 'django.core.mail.backends.smtp.SMTPBackend'
-
 AUTH_USER_MODEL =  'accounts.CustomUser' #new
-
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
 # send reset password email 
 
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'Your email address' 
-EMAIL_HOST_PASSWORD = 'Your pasword'
+EMAIL_HOST_USER = 'lecht2000@gmail.com' 
+EMAIL_HOST_PASSWORD = 'yddtsbvhmoxpqfph'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 

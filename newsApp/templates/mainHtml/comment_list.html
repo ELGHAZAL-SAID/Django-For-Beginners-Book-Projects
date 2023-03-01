@@ -1,0 +1,83 @@
+{% extends 'mainHtml/base.html' %}
+{% load crispy_forms_tags %}
+{% block title %}Comments{% endblock title %}
+{% block content %}
+<div class="card">
+        <div class="card-header">
+            <span class="font-weight-bold">{{article.title}}</span>&middot;
+            <span class="text-muted">by {{article.author}} | {{article.date}}</span>
+        </div>
+        <div class="card-body">
+            {{article.body}}
+        </div>
+        <div class="card-footer">
+        {{article.comments.count}} 
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left" viewBox="0 0 16 16">
+                <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+            </svg>
+        <span class='commentTitle' >| Comments</span>
+        {% for comment in article.comments.all %}
+            <div class="card-footer">
+                <span class="font-bold" >
+                    {{comment.author}}
+                </span>
+                <span>|{{comment.created}}</span>
+                <br/>
+                <span class = 'comments'>
+                    {{comment}}
+                </span>
+                <br/>
+                {% if user == comment.author or user == article.author or user.is_superuser%}
+                    <button type="button" class="delete-comment-btn" data-comment-id="{{ comment.pk }}">Delete</button>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form|crispy}}
+        <button type="submit" class="btn btn-primary btn-l2">
+            Add comment
+        </button>
+    </form>
+
+    <script>
+        // Add event listener to all "Delete" buttons
+        const deleteCommentBtns = document.querySelectorAll('.delete-comment-btn');
+        deleteCommentBtns.forEach((btn) => {
+            btn.addEventListener('click', () => {
+            const commentId = btn.dataset.commentId;
+            const url = `{% url 'delete_comment' 0 %}`.replace('0', commentId);
+            if (confirm('Are you sure you want to delete this comment?')) {
+                fetch(url, { method: 'DELETE', headers: { 'X-CSRFToken': '{{ csrf_token }}' } })
+                .then(() => {
+                    document.getElementById(`comment-${commentId}`).remove();
+                })
+                .catch((err) => console.error(err));
+            }
+            location.reload(); // Refresh the page after deleting the comment
+        });
+        });
+
+
+        // Add event listener to all "Edit" links
+        const editCommentLinks = document.querySelectorAll('.edit-comment-link');
+        editCommentLinks.forEach((link) => {
+        link.addEventListener('click', () => {
+            // Get the comment ID and form element
+            const commentId = link.dataset.commentId;
+            const commentDiv = document.getElementById(`comment-${commentId}`);
+            const editForm = commentDiv.nextElementSibling;
+
+            // Show the "Edit Comment" form and hide the comment text
+            commentDiv.style.display = 'none';
+            editForm.style.display = 'block';
+
+            // Populate the form with the comment text
+            const commentText = commentDiv.querySelector('p').textContent;
+            editForm.querySelector('textarea').value = commentText;
+            editForm.querySelector('input[name="comment_id"]').value = commentId;
+        });
+        });
+    </script>
+{% endblock content %}

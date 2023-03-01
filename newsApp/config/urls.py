@@ -18,7 +18,7 @@ from django.urls import path,  include
 from django.views.generic.base import TemplateView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls,name='admin'),
     path('accounts/',include('accounts.urls')), #new
     path('accounts/',include('django.contrib.auth.urls')),
     path('articles/',include('articles.urls')),
